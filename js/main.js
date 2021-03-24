@@ -1,23 +1,20 @@
-// When the user clicks on the button, opent the modal
-function openModal(){
-    // Get the modal
-    var modal = document.getElementById("myModal");
-    modal.style.display = "block";
-}
+// Loaddata Functionality 
+function loaddata(){
+    
+    // Get search Value
+    var search = document.getElementById("search");
 
-// When user clicks span (x), close the modal
-function closeModal(){
-    // Get the modal
-    var modal = document.getElementById("myModal");
-    modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    // Get the modal
-    var modal = document.getElementById("myModal");
-
-    if (event.target == modal){
-        modal.style.display = "none";
+    if(search){
+        $.ajax({
+            type: 'post',
+            url: '../includes/loaddata.php',
+            data: {
+                search : search,
+            },
+            success: function (response) {
+                // We get the element having id of display_info and put the response inside it
+                $( '#display_info' ).html(response);
+            }
+        });
     }
 }

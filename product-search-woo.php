@@ -12,22 +12,7 @@
         exit; // Exit if accessed directly
     }
 
-    include 'shortcodes/';
+    include 'shortcodes/product-search-woo.php';
+    // include 'js/main.js';
 
-    // Add scripts and styles
-    function search_plugin_scripts_styles(){
-        if (class_exists("Woocommerce")) {
-
-            wp_enqueue_style( 'search-style', plugins_url('/css/styles.css', __FILE__ ), array(), '1.0.0' );
-            wp_register_script( 'search-main', plugins_url('/js/main.js', __FILE__ ), array('jquery'), '', true);
-            wp_localize_script(
-                'search-main',
-                'opt',
-                array(
-                    'ajaxUrl'   => admin_url('admin-ajax.php'),
-                    'noResults' => esc_html__( 'No products found', 'textdomain' ),
-                )
-            );
-        }
-    }
 ?>
