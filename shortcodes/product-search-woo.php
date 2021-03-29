@@ -11,6 +11,7 @@
                     document.getElementById("masthead").style.marginTop = "70px";
 					modal.style.display = "block";
 					top.style.display = "none";
+                    document.getElementById("search").focus();
 				}
 
 				// When user clicks span (x), close the modal
@@ -58,6 +59,9 @@
                 }
             </script>
             <style>
+                span{
+                    font-family: 'Manrope' !important;
+                }
                 /* The Modal (background) */
                 .modal {
                     display: none; /* Hidden by default */
@@ -74,7 +78,7 @@
 
                 /* Modal Content/Box*/
                 .modal-content {
-                    background-color: #111111;
+                    background-color: #111111;2
                     /*margin: 0px auto; /* 15% from the top and centered */
                     /* padding: 20px; */
                     /* border: 1px solid #888; */
@@ -167,7 +171,8 @@
 
                 /* Search iCon */
                 img#search-icon{
-                    width: 20px;
+                    width: 22px;
+                    /* max-width: 32px; */
                     cursor: pointer;
                 }
                 /**/
@@ -177,9 +182,22 @@
                     margin: 0px auto;
                     border-bottom-left-radius: 10px;
                     border-bottom-right-radius: 10px;
+                    overflow-x: hidden;
+                    padding-left: 20px;
+    
                 }
+                /* Hide scrollbar for Chrome, Safari and Opera */
+                /* .ex::-webkit-scrollbar {
+                display: none;
+                } */
+
+                /* Hide scrollbar for IE, Edge and Firefox
+                .ex {
+                -ms-overflow-style: none;  /* IE and Edge
+                scrollbar-width: none;  /* Firefox 
+                }*/
                 #display_info ul > li {
-                    padding-left: 40px;
+                    padding-left: 20px;
                     padding-bottom: 10px;
                 }
                 #display_info ul{
@@ -206,11 +224,33 @@
                 *#prd-li:hover{
                     font-weight: bold;
                 }
+                #float-icon{
+                    width: 40px;
+                    padding-right: 10px;
+                    /* position: fixed; */
+                }
+                /* width */
+                #display_info ::-webkit-scrollbar {
+                    width: 10px !important;
+                }
+                /* Track */
+                #display_info ::-webkit-scrollbar-track {
+                    background: #e5e5e5 !important; 
+                    border-radius: 99px;
+                    margin-top: 10px;
+                    /* padding-left: 10px; */
+                    margin-right: 20px !important;
+                }
+                /* Handle */
+                #display_info ::-webkit-scrollbar-thumb {
+                    background: #c4c4c4 !important;
+                    border-radius: 99px;
+                }
             </style>
             
             <!-- Trigger/Open The Modal -->
             <!-- Search iCon -->
-            <img id="search-icon" src="https://icare.eu/wp-content/uploads/2021/03/Search_Icon.png" alt="Search-iCon" onclick="openModal()"> <span id="milk-white" style="padding-left: 10px">Search</span>
+            <p onclick="openModal()"><img id="search-icon" src="https://icare.eu/wp-content/uploads/2021/03/SearchIconNew.png" alt="Search-iCon"> <span id="milk-white" style="padding-left: 10px; font-size: 18px !important; font-weight: 500; cursor:pointer">Search</span>
             <!-- / Search iCon --></button>
 
             <!-- The Modal -->
@@ -231,7 +271,7 @@
                                 <!-- / Image Column -->
                                 <!-- Search Column -->
                                 <td class="cell search">
-                                    <input type="search" name="s" class="search" id="search" onkeyup="loaddata()"/>
+                                    <input autofocus type="text" name="s" class="search" id="search" onkeyup="loaddata()"/>
                                     <input type="hidden" name="post_type" value="product"/>
                                 </td>
                                 <!-- / Search Column -->
@@ -243,8 +283,66 @@
                         <!-- Search Form -->
                     </form> 
                 </div>
-                <div id="display_info"></div>
+                <div id="display_info">
+                    <div class="ex" style="width: 65%; float: left; max-height: 428px; overflow-y: scroll; -webkit-overflow-scrolling: touch; overflow-x: hidden" dir="rtl">
+                        <ul dir="ltr">
+                            <?php
+                            $args = array(
+                                'post_type' => 'product',
+                                'meta_key' => 'total_sales',
+                                'orderby' => 'meta_value_num',
+                                'posts_per_page' => 8,
+                            );
+                            $loop = new WP_Query( $args );
+                            while ( $loop->have_posts() ) : $loop->the_post(); 
+                            global $product; 
+                            // $link = the_permalink();
+                            ?>
+                            <li><a id="prd-li" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a></li>
+
+                            <?php endwhile; ?>
+                            <?php wp_reset_query(); ?>
+                        </ul>
+                    </div>
+                    <div style="margin-left:65%;">
+                        <ul>
+                            <li>
+                                <img id="float-icon" src="https://icare.eu/wp-content/uploads/2021/03/search_cases_and_protection_icon.svg" alt="Cases & Protection">
+                                <a id="cat-ul" href="https://icare.eu/product-category/cases-and-protection/">Cases and Protection</a>
+                            </li>
+                            <li>
+                                <img id="float-icon" src="https://icare.eu/wp-content/uploads/2021/03/search_Headphones_Speakers_icon.svg" alt="Headphones & Speakers">
+                                <a id="cat-ul" href="https://icare.eu/product-category/headphones-and-speakers/">Headphones and Speakers</a>
+                            </li>
+                            <li>
+                                <img id="float-icon" src="https://icare.eu/wp-content/uploads/2021/03/search_Power_Cables_icon.svg" alt="Power & Cables">
+                                <a id="cat-ul" href="https://icare.eu/product-category/power-and-cables/">Power and Cables</a>
+                            </li>
+                            <li>
+                                <img id="float-icon" src="https://icare.eu/wp-content/uploads/2021/03/search_Mice_Keyboards_icon.svg" alt="Mice & Keyboards">
+                                <a id="cat-ul" href="https://icare.eu/product-category/mice-and-keyboards/">Mice and Keyboards</a>
+                            </li>
+                            <li>
+                                <img id="float-icon" src="https://icare.eu/wp-content/uploads/2021/03/search_Stands_Stylus_icon.svg" alt="Stands & Stylus">
+                                <a id="cat-ul" href="https://icare.eu/product-category/stands-and-stylus/">Stands and Stylus</a>
+                            </li>
+                            <li>
+                                <img id="float-icon" src="https://icare.eu/wp-content/uploads/2021/03/search_Smart_Linving_icon.svg" alt="Smart Living">
+                                <a id="cat-ul" href="https://icare.eu/product-category/smart-living/">Smart Linving</a>
+                            </li>
+                            <li>
+                                <img id="float-icon" src="https://icare.eu/wp-content/uploads/2021/03/search_Entertainment_icon.svg" alt="Entertainment">
+                                <a id="cat-ul" href="https://icare.eu/product-category/gaming-and-entertaiment/">Entertainment</a>
+                            </li>
+                            <li>
+                                <img id="float-icon" src="https://icare.eu/wp-content/uploads/2021/03/search_Enviromental_Friendly_icon.svg" alt="Enviromental Friendly">
+                                <a id="cat-ul" href="https://icare.eu/product-category/environmental-friendly/">Enviromental Friendly</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
+
         <?php
     }
 

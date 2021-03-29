@@ -4,9 +4,9 @@
     function openCon(){
 
         $host   = 'localhost';
-        $uname  = 'klamaj';
-        $passwd = 'kristel.lamaj@123';
-        $db     = 'iCare_db_AT';
+        $uname  = '';
+        $passwd = '';
+        $db     = '';
         
         $conn = new mysqli($host, $uname, $passwd, $db);
 
